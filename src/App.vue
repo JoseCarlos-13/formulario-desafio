@@ -1,10 +1,6 @@
 <template>
 	<div id="app">
-		<h1>Formulário Desafio</h1>
-		<div class="conteudo">
-			<form class="painel">
-				<div class="cabecalho">Formulário</div>
-				<!-- Exercicio 01 -->
+		<!-- Exercicio 01 -->
 				<!-- Criar uma formulário de registro -->
 				<!-- Nome completo (Nome e Sobrenome) -->
 				<!-- Email -->
@@ -18,21 +14,61 @@
 				<!-- Exercicio 03 -->
 				<!-- Crie um componente personalizado NomeCompleto -->
 				<!-- Esse componente deve receber Nome e Sobrenome -->
-			</form>
-			<div class="painel">
-				<div class="cabecalho">Resultado</div>
+		<h1>Formulário Desafio</h1>
+		<div class="conteudo">
+			<form class="painel" v-if="!enviado">
+				<div class="cabecalho">Formulário</div>
+					<NomeCompleto :usuario="usuario"
+								  :nome="usuario.nome"
+								  :sobrenome="usuario.sobrenome">
+					</NomeCompleto>
+					<Rotulo nome="Senha">
+						<input type="password" v-model="usuario.senha"/>
+					</Rotulo>
+					<Rotulo nome="Email">
+						<input type="email" v-model="usuario.email"/>
+					</Rotulo>
 
+					<button type="primary" @click="enviar">Enviar</button>
+			</form>
+			<div class="painel" v-else>
+				<div class="cabecalho">Resultado</div>
+				<NomeCompleto></NomeCompleto>
+				<Rotulo nome="Senha">{{ usuario.senha }}</Rotulo>
+				<Rotulo nome="Email">{{ usuario.email }}</Rotulo>
 			</div>
 		</div>
 	</div>
 </template>
 
 <script>
-import Rotulo from './components/Rotulo.vue'
+import Rotulo from './components/Rotulo'
+import NomeCompleto from './components/NomeCompleto'
 
 export default {
 	name: 'app',
-	components: { Rotulo }
+	components: { Rotulo, NomeCompleto },
+
+	data(){
+		return{
+			usuario: {
+				nome: '',
+				sobrenome: '',
+				senha: '',
+				email: ''
+			},
+
+			enviado: false
+		}
+	},
+
+
+	methods:{
+		enviar(){
+			this.enviado = !this.enviado
+			console.log(this.enviado)
+		}
+	}
 }
 </script>
 
@@ -59,6 +95,7 @@ body {
 
 .painel {
 	flex: 1;
+	width: 100px;
 	background: #FFF;
 	margin: 0px 10px;
 	padding: 20px;
