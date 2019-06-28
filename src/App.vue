@@ -18,9 +18,9 @@
 		<div class="conteudo">
 			<form class="painel" v-if="!enviado">
 				<div class="cabecalho">Formulário</div>
-					<NomeCompleto :usuario="usuario"
-								  :nome="usuario.nome"
-								  :sobrenome="usuario.sobrenome">
+					<NomeCompleto 	:usuario="usuario"
+									:nome="usuario.nome"
+									:sobrenome="usuario.sobrenome">
 					</NomeCompleto>
 					<Rotulo nome="Senha">
 						<input type="password" v-model="usuario.senha"/>
@@ -31,9 +31,11 @@
 
 					<button type="primary" @click="enviar">Enviar</button>
 			</form>
+			
 			<div class="painel" v-else>
 				<div class="cabecalho">Resultado</div>
-				<NomeCompleto></NomeCompleto>
+				<Rotulo nome="Nome">{{usuario.nome}}</Rotulo>
+				<Rotulo nome="Sobrenome">{{usuario.sobrenome}}</Rotulo>
 				<Rotulo nome="Senha">{{ usuario.senha }}</Rotulo>
 				<Rotulo nome="Email">{{ usuario.email }}</Rotulo>
 			</div>
@@ -65,8 +67,7 @@ export default {
 
 	methods:{
 		enviar(){
-			this.enviado = !this.enviado
-			console.log(this.enviado)
+			this.enviado = true
 		}
 	}
 }
@@ -84,7 +85,6 @@ body {
 	-moz-osx-font-smoothing: grayscale;
 	text-align: center;
 	color: #2c3e50;
-
 	display: flex;
 	flex-direction: column;
 }
